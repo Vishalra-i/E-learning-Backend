@@ -144,13 +144,9 @@ const deleteCourse = asyncHandler(async (req, res) => {
     res.status(200)
     .json(new ApiResponse(200, "Course deleted successfully", null));
 });
+
+
   
-
-
-
-
-
-
 export { 
          createCourse ,
          getAllCourses ,
