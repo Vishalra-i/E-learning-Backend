@@ -1,5 +1,7 @@
 import Mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+
 
 const userSchema = new Mongoose.Schema({
   name: {
@@ -9,7 +11,8 @@ const userSchema = new Mongoose.Schema({
   email: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
+    lowerCase:true
   },
   password: {
     type: String,
@@ -21,6 +24,10 @@ const userSchema = new Mongoose.Schema({
   },
   avatar:{
     type:String,
+  },
+  verified:{
+    type:Boolean,
+    default:false
   }
 }, {
   timestamps: true
@@ -41,4 +48,22 @@ userSchema.methods.isPasswordCorrect = async function (password) {
     }
   };
 
-export default userSchema;  
+  userSchema.methods.generateAuthToken = function () {
+    const payload = {
+      _id: this._id,
+      email: this.email,
+      role: this.role
+    };
+  
+    // Generate and sign JWT
+    return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5h' }); // Adjust expiresIn as needed
+  };
+
+  userSchema.methods.isAdmin = function() {
+    if(this.role === 'admin'){
+      return true
+    }
+    return false
+  }
+
+export const User = Mongoose.model("User", userSchema);
