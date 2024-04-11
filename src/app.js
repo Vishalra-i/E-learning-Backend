@@ -12,9 +12,9 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 app.get('/',(res,req)=>{
-    let htmlFile = fs.readFileSync('homepage.html','utf-8')
+    let htmlFile = fs.readFileSync('homepage.html','utf-8' )
     req.setHeader('Content-Type', 'text/html')
-    req.send(htmlFile)
+    req.send(htmlFile || "Welcome to Api")
 })
 
 //User Routes
