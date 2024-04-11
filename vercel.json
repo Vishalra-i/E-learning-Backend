@@ -1,8 +1,5 @@
 {
     "version": 2,
-    {
-        "buildCommand": "npm run dev"
-    },
     "builds": [
       {
         "src": "src/index.js", 
