@@ -11,10 +11,177 @@ app.use(express.urlencoded({extended:true}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
-app.get('/',(res,req)=>{
-    let htmlFile = fs.readFileSync('homepage.html','utf-8' )
-    req.setHeader('Content-Type', 'text/html')
-    req.send(htmlFile || "Welcome to Api")
+app.get('/', (req,res)=>{
+  res.send(`<!DOCTYPE html>
+  <html lang="en">
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>API Documentation</title>
+      <style>
+          body {
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              margin: 0;
+              padding: 20px;
+              background-color: #f9f9f9;
+              color: #333;
+          }
+          h1 {
+              color: #0066cc;
+              text-align: center;
+              margin-bottom: 30px;
+          }
+          span{
+              color: red;
+              font-weight: 800;
+          }
+          .section {
+              background-color: #fff;
+              border-radius: 8px;
+              box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+              padding: 20px;
+              margin-bottom: 40px;
+              overflow: hidden;
+          }
+          .section h2 {
+              color: #333;
+              font-size: 24px;
+              margin-bottom: 20px;
+          }
+          .endpoint {
+              border-bottom: 1px solid #eee;
+              padding-bottom: 20px;
+              margin-bottom: 20px;
+          }
+          .endpoint h3 {
+              color: #0066cc;
+              font-size: 20px;
+              margin-bottom: 10px;
+              cursor: pointer;
+              transition: color 0.3s ease;
+          }
+          .endpoint p {
+              color: #666;
+              font-size: 16px;
+              margin-bottom: 5px;
+          }
+          .endpoint h3:hover {
+              color: #004080;
+          }
+          @keyframes fadein {
+              from { opacity: 0; }
+              to   { opacity: 1; }
+          }
+          @keyframes slidein {
+              from { transform: translateY(-20px); }
+              to   { transform: translateY(0); }
+          }
+          .section, .endpoint {
+              animation: fadein 0.5s ease;
+          }
+          .endpoint:nth-child(even) {
+              animation: slidein 0.5s ease;
+          }
+          .bash-command {
+              background-color: #333;
+              color: #fff;
+              padding: 8px 12px;
+              border-radius: 5px;
+              font-family: 'Courier New', Courier, monospace;
+              display: inline-block;
+          }
+          @media (max-width: 768px) {
+              h1 {
+                  font-size: 28px;
+              }
+              .section h2 {
+                  font-size: 20px;
+              }
+              .endpoint h3 {
+                  font-size: 18px;
+              }
+              .endpoint p {
+                  font-size: 14px;
+              }
+          }
+      </style>
+  </head>
+  <body>
+      <h1>API Documentation</h1>
+  
+      <div class="section">
+          <h2>User Routes</h2>
+          <div class="endpoint">
+              <h3>Register User</h3>
+              <p><span class="bash-command">POST</span> /api/v1/users/register</p>
+              <p>Description: Register a new user.</p>
+          </div>
+          <div class="endpoint">
+              <h3>Login User</h3>
+              <p><span class="bash-command">POST</span> /api/v1/users/login</p>
+              <p>Description: Login with user credentials.</p>
+          </div>
+          <div class="endpoint">
+              <h3>Logout User</h3>
+              <p><span class="bash-command">POST</span> /api/v1/users/logout</p>
+              <p>Description: Logout with user credentials.</p>
+          </div>
+          <div class="endpoint">
+              <h3>Verify User</h3>
+              <p><span class="bash-command">GET</span> /api/v1/users/:userId/verify/:token</p>
+              <p>Description: Verify user email using verification token.</p>
+          </div>
+          <div class="endpoint">
+              <h3>Update User</h3>
+              <p><span class="bash-command">PATCH</span> /api/v1/users/update</p>
+              <p>Description: Update user details including avatar.</p>
+          </div>
+          
+      </div>
+  
+      <div class="section">
+          <h2>Course Routes</h2>
+          <div class="endpoint">
+              <h3>Get All Course</h3>
+              <p><span class="bash-command">Get</span> /api/v1/courses</p>
+              <p>Description: Get all available course.</p>
+          </div>
+          <div class="endpoint">
+              <span>Admin Only</span>
+              <h3>Create Course</h3>
+              <p><span class="bash-command">POST</span> /api/v1/courses/create</p>
+              <p>Description: Create a new course.</p>
+          </div>
+          <div class="endpoint">
+              <span>Admin Only</span>
+              <h3>Delete Course</h3>
+              <p><span class="bash-command">DELETE</span> /api/v1/courses/:courseId</p>
+              <p>Description: Delete a course by ID.</p>
+          </div>
+          <div class="endpoint">
+              <span>Admin Only</span>
+              <h3>Update Course</h3>
+              <p><span class="bash-command">Patch</span> /api/v1/courses/:courseId</p>
+              <p>Description: Update a course by ID.</p>
+          </div>
+      </div>
+  
+      <div class="section">
+          <h2>Enrollment Routes</h2>
+          <div class="endpoint">
+              <h3>Enroll Course</h3>
+              <p><span class="bash-command">POST</span> /api/v1/courses/enroll/:courseId</p>
+              <p>Description: Enroll in a course.</p>
+          </div>
+          <div class="endpoint">
+              <h3>View Enrolled Courses</h3>
+              <p><span class="bash-command">GET</span> /api/v1/courses/enroll</p>
+              <p>Description: View all enrolled courses.</p>
+          </div>
+      </div>
+  </body>
+  </html>
+  `)
 })
 
 //User Routes
