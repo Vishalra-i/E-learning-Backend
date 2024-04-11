@@ -1,4 +1,4 @@
-import express from "express";
+import express from 'express'
 import fs from "fs"
 import cookieParser from "cookie-parser";
 
@@ -25,4 +25,4 @@ app.use("/api/v1/users",userRoutes)
 import courseRoutes from "./routes/course.route.js"
 app.use("/api/v1/courses", courseRoutes)
 
-export  {app}
+export default app
