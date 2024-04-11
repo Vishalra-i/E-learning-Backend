@@ -18,6 +18,18 @@ JWT_SECRET =
 
 ``
 
+## Installation
+
+Install node modules
+
+```bash
+  npm install
+```
+
+```bash
+  npm run dev
+```
+
 
 ## Home Route For Documentation ("/")
 ![alt text](./public/image.png)
@@ -96,27 +108,19 @@ This documentation provides details about the endpoints available in the API.
 - **Description**: View all enrolled courses.
 
 
-## Installation
 
-Install node modules
-
-```bash
-  npm install
-```
-
-```bash
-  npm run dev
-```
     
-## Demo
 
 
 ## Technologies Used
 
-- ### Vite React
-- ### Tailwind Css
-- ### React Router
-- ### Redux
+- ### Node Js
+- ### Express
+- ### MongoDb
+- ### Cloudniary
+- ### Resend
+- ### JWT
+- ### bcrypt
 
 
 
